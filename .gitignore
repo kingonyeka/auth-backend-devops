@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Environment files (NEVER commit real secrets)
+.env
+.env.local
+.env.dev
+.env.staging
+.env.prod
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# Terraform
+terraform/**/.terraform/
+terraform/**/*.tfstate
+terraform/**/*.tfstate.backup
+terraform/**/.terraform.lock.hcl
+terraform/**/*.tfvars
+!terraform/**/*.tfvars.example
+
+# AWS
+*.pem
+.aws-sam/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+prisma/migrations/dev.db
+
+# Docker
+docker-compose.override.yml
