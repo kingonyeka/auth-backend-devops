@@ -47,3 +47,11 @@ prisma/migrations/dev.db
 
 # Docker
 docker-compose.override.yml
+
+.claude/
+.cursor/
+.devin/
+.agent/
+agent/
+
+.gitignore
