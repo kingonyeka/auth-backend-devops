@@ -4,7 +4,6 @@ import { env } from '../../config';
 // Prevent multiple PrismaClient instances during dev hot-reloads (ts-node-dev
 // restarts the process but can leave old connections dangling otherwise).
 declare global {
-  // eslint-disable-next-line no-var
   var __prisma: PrismaClient | undefined;
 }
 

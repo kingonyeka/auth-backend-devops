@@ -21,22 +21,22 @@ Paired frontend: `auth-frontend` (Next.js) — separate repository.
 
 ## Tech Stack
 
-| Layer | Tools |
-|---|---|
-| Language | TypeScript (strict mode) |
-| Framework | Express.js |
-| Validation | Zod |
-| Auth | JWT, argon2, Passport.js, otplib |
-| Database | PostgreSQL + Prisma |
-| Cache / Sessions | Redis (ioredis) |
-| Messaging | RabbitMQ (dev) / AWS SQS (staging, prod) |
-| Email / SMS | AWS SES, Twilio / AWS SNS |
-| Testing | Jest, Supertest |
-| Containers | Docker, Docker Compose |
-| IaC | Terraform |
-| CI/CD | GitHub Actions |
-| Cloud | AWS (ECS Fargate, RDS, ElastiCache, ALB, Route53, Secrets Manager) |
-| Observability | Pino, OpenTelemetry, Sentry, CloudWatch |
+| Layer            | Tools                                                              |
+| ---------------- | ------------------------------------------------------------------ |
+| Language         | TypeScript (strict mode)                                           |
+| Framework        | Express.js                                                         |
+| Validation       | Zod                                                                |
+| Auth             | JWT, argon2, Passport.js, otplib                                   |
+| Database         | PostgreSQL + Prisma                                                |
+| Cache / Sessions | Redis (ioredis)                                                    |
+| Messaging        | RabbitMQ (dev) / AWS SQS (staging, prod)                           |
+| Email / SMS      | AWS SES, Twilio / AWS SNS                                          |
+| Testing          | Jest, Supertest                                                    |
+| Containers       | Docker, Docker Compose                                             |
+| IaC              | Terraform                                                          |
+| CI/CD            | GitHub Actions                                                     |
+| Cloud            | AWS (ECS Fargate, RDS, ElastiCache, ALB, Route53, Secrets Manager) |
+| Observability    | Pino, OpenTelemetry, Sentry, CloudWatch                            |
 
 ---
 
@@ -76,11 +76,13 @@ docker/                 # Dockerfile, compose files
 ## Getting Started (Local Development)
 
 ### Prerequisites
+
 - Node.js 20+
 - Docker & Docker Compose
 - npm
 
 ### 1. Clone and install
+
 ```bash
 git clone <repo-url>
 cd auth-backend
@@ -88,23 +90,28 @@ npm install
 ```
 
 ### 2. Configure environment
+
 ```bash
 cp .env.example .env
 # fill in local values — see Environment Variables section below
 ```
 
 ### 3. Start local infrastructure
+
 ```bash
 docker compose -f docker/docker-compose.yml up -d
 ```
+
 This spins up Postgres, Redis, RabbitMQ, and Mailhog (for catching test emails locally).
 
 ### 4. Run database migrations
+
 ```bash
 npx prisma migrate dev
 ```
 
 ### 5. Start the dev server
+
 ```bash
 npm run dev
 ```
@@ -132,11 +139,11 @@ npm run test:coverage     # coverage report
 
 ## Environments
 
-| Environment | Purpose | Infra |
-|---|---|---|
-| `dev` | Local development | Docker Compose only |
-| `staging` | Pre-prod validation | AWS (single-AZ, smaller instance sizes) |
-| `prod` | Live traffic | AWS (Multi-AZ, autoscaling) |
+| Environment | Purpose             | Infra                                   |
+| ----------- | ------------------- | --------------------------------------- |
+| `dev`       | Local development   | Docker Compose only                     |
+| `staging`   | Pre-prod validation | AWS (single-AZ, smaller instance sizes) |
+| `prod`      | Live traffic        | AWS (Multi-AZ, autoscaling)             |
 
 Deploys to `staging` happen automatically on merge to `develop`. Deploys to `prod` require manual approval in GitHub Actions on merge to `main`.
 
@@ -160,6 +167,7 @@ See `docs/` (or project wiki) for the manual AWS CLI walkthrough used to underst
 ## CI/CD
 
 GitHub Actions workflows in `.github/workflows/`:
+
 - `lint-test.yml` — runs on every PR (lint, typecheck, unit + integration tests)
 - `build-push-ecr.yml` — builds Docker image, pushes to ECR
 - `deploy-staging.yml` — auto-deploys to staging on merge to `develop`

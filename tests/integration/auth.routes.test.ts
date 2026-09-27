@@ -55,9 +55,7 @@ describe('Auth flow', () => {
   it('verifies the email with the correct code', async () => {
     const code = await getVerificationCode(testUser.email);
 
-    const res = await request(app)
-      .post('/auth/verify-email')
-      .send({ email: testUser.email, code });
+    const res = await request(app).post('/auth/verify-email').send({ email: testUser.email, code });
 
     expect(res.status).toBe(200);
     expect(res.body.user.emailVerified).toBe(true);

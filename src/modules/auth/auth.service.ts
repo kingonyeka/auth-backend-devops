@@ -1,6 +1,16 @@
 import { hashPassword, verifyPassword } from '../../utils/hash';
-import { createUser, findUserByEmail, findUserById, markEmailVerified, toPublicUser } from '../users/users.service';
-import { createVerificationCode, sendVerificationEmail, verifyCode } from '../verification/verification.service';
+import {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  markEmailVerified,
+  toPublicUser,
+} from '../users/users.service';
+import {
+  createVerificationCode,
+  sendVerificationEmail,
+  verifyCode,
+} from '../verification/verification.service';
 import { issueTokenPair, rotateRefreshToken, revokeRefreshToken } from '../tokens/tokens.service';
 import { AppError } from '../../middleware/errorHandler.middleware';
 import type { SignupInput, LoginInput } from './auth.types';

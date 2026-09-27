@@ -6,7 +6,6 @@ import type { TokenPair } from './tokens.types';
 
 const REFRESH_TOKEN_PREFIX = 'refresh_token:';
 
-
 function refreshTokenTtlSeconds(): number {
   const FALLBACK_SECONDS = 7 * 24 * 60 * 60; // 7 days
   const match = env.JWT_REFRESH_EXPIRY.match(/^(\d+)([smhd])$/);
@@ -29,24 +28,16 @@ function refreshTokenTtlSeconds(): number {
 }
 
 export async function issueTokenPair(userId: string, email: string): Promise<TokenPair> {
-  
-  const accessToken = jwt.sign(
-  { sub: userId, email, jti: randomUUID() },
-  env.JWT_ACCESS_SECRET,
-  { expiresIn: env.JWT_ACCESS_EXPIRY } as jwt.SignOptions,
-);
+  const accessToken = jwt.sign({ sub: userId, email, jti: randomUUID() }, env.JWT_ACCESS_SECRET, {
+    expiresIn: env.JWT_ACCESS_EXPIRY,
+  } as jwt.SignOptions);
 
   // A random, opaque refresh token — NOT a JWT. We store it server-side in
   // Redis so it can be revoked instantly (logout, password change, suspected
   // theft). A self-contained JWT refresh token can't be revoked before it
   // naturally expires, which is a real security gap for a token that lives 7 days.
   const refreshToken = randomUUID();
-  await redis.set(
-    `${REFRESH_TOKEN_PREFIX}${refreshToken}`,
-    userId,
-    'EX',
-    refreshTokenTtlSeconds(),
-  );
+  await redis.set(`${REFRESH_TOKEN_PREFIX}${refreshToken}`, userId, 'EX', refreshTokenTtlSeconds());
 
   return { accessToken, refreshToken };
 }

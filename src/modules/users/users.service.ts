@@ -19,6 +19,10 @@ export async function markEmailVerified(userId: string) {
 
 // Never return the passwordHash to a client — this is the single boundary
 // point where a full DB user gets converted to what's safe to expose.
-export function toPublicUser(user: { id: string; email: string; emailVerified: boolean }): PublicUser {
+export function toPublicUser(user: {
+  id: string;
+  email: string;
+  emailVerified: boolean;
+}): PublicUser {
   return { id: user.id, email: user.email, emailVerified: user.emailVerified };
 }

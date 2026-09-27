@@ -5,12 +5,12 @@ services:
       dockerfile: docker/Dockerfile
     container_name: auth-api-staging
     ports:
-      - "4000:4000"
+      - '4000:4000'
     env_file:
       - ../.env.staging
     restart: unless-stopped
     logging:
-      driver: "json-file"
+      driver: 'json-file'
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'

@@ -17,7 +17,7 @@ export function errorHandler(
   err: unknown,
   req: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   next: NextFunction,
 ): void {
   if (err instanceof ZodError) {
