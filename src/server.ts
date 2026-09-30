@@ -4,6 +4,7 @@ import { env } from './config';
 import { logger } from './utils/logger';
 import { prisma } from './lib/db/prisma';
 import { redis } from './lib/redis/client';
+import { closeQueueConnection } from './queues/connection';
 
 const app = createApp();
 
@@ -19,6 +20,7 @@ async function shutdown(signal: string) {
   server.close(async () => {
     await prisma.$disconnect();
     redis.disconnect();
+    await closeQueueConnection();
     logger.info('Shutdown complete');
     process.exit(0);
   });

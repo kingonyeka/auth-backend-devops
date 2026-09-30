@@ -26,7 +26,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "dev:worker": "ts-node-dev --respawn --transpile-only src/worker.ts",
+    "start:worker": "node dist/worker.js"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1141.0",
@@ -34,7 +36,7 @@
     "@aws-sdk/client-sns": "^3.1141.0",
     "@aws-sdk/client-sqs": "^3.1141.0",
     "@prisma/client": "^5.22.0",
-    "amqplib": "^2.0.1",
+    "amqplib": "^2.2.0",
     "argon2": "^0.45.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -46,7 +48,7 @@
     "helmet": "^8.3.0",
     "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
-    "nodemailer": "^10.0.10",
+    "nodemailer": "^10.0.12",
     "openid-client": "^6.8.8",
     "otplib": "^13.5.0",
     "passport": "^0.7.0",

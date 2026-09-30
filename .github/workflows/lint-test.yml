@@ -39,8 +39,9 @@ jobs:
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/auth_system_test
       REDIS_URL: redis://localhost:6379
-      JWT_ACCESS_SECRET: ci_test_access_secret_not_real
-      JWT_REFRESH_SECRET: ci_test_refresh_secret_not_real
+      RABBITMQ_URL: amqp://guest:guest@localhost:5672
+      JWT_ACCESS_SECRET: ci_test_access_secret_not_real4qqq
+      JWT_REFRESH_SECRET: ci_test_refresh_secret_not_real4qqq
 
     steps:
       - name: Checkout code

@@ -1,22 +1,38 @@
 import { z } from 'zod';
 
-export const signupSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-});
+// Normalize once, at the boundary: "Lee@X.com" and "lee@x.com" must be the
+// same account. Everything downstream can then trust emails are canonical.
+const email = z.string().trim().toLowerCase().email();
+
+// Cap the length: hashing a multi-megabyte "password" is a cheap DoS vector.
+const password = z
+  .string()
+  .min(8, 'Password must be at least 8 characters')
+  .max(128, 'Password must be at most 128 characters');
+
+export const signupSchema = z.object({ email, password });
 
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1),
+  email,
+  password: z.string().min(1).max(128),
 });
 
 export const verifyEmailSchema = z.object({
-  email: z.string().email(),
+  email,
   code: z.string().length(6),
 });
 
 export const refreshSchema = z.object({
   refreshToken: z.string().min(1),
+});
+
+export const resendVerificationSchema = z.object({ email });
+
+export const forgotPasswordSchema = z.object({ email });
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  newPassword: password,
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;

@@ -17,12 +17,10 @@ export async function markEmailVerified(userId: string) {
   return prisma.user.update({ where: { id: userId }, data: { emailVerified: true } });
 }
 
-// Never return the passwordHash to a client — this is the single boundary
-// point where a full DB user gets converted to what's safe to expose.
-export function toPublicUser(user: {
-  id: string;
-  email: string;
-  emailVerified: boolean;
-}): PublicUser {
+export async function updatePassword(userId: string, passwordHash: string) {
+  return prisma.user.update({ where: { id: userId }, data: { passwordHash } });
+}
+
+export function toPublicUser(user: { id: string; email: string; emailVerified: boolean }): PublicUser {
   return { id: user.id, email: user.email, emailVerified: user.emailVerified };
 }
