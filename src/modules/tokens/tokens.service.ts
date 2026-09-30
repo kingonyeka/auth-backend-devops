@@ -23,11 +23,9 @@ export function refreshTokenTtlSeconds(): number {
 }
 
 export async function issueTokenPair(userId: string, email: string): Promise<TokenPair> {
-  const accessToken = jwt.sign(
-    { sub: userId, email, jti: randomUUID() },
-    env.JWT_ACCESS_SECRET,
-    { expiresIn: env.JWT_ACCESS_EXPIRY } as jwt.SignOptions,
-  );
+  const accessToken = jwt.sign({ sub: userId, email, jti: randomUUID() }, env.JWT_ACCESS_SECRET, {
+    expiresIn: env.JWT_ACCESS_EXPIRY,
+  } as jwt.SignOptions);
 
   const refreshToken = randomUUID();
   const ttl = refreshTokenTtlSeconds();

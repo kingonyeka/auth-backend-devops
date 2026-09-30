@@ -49,7 +49,6 @@
 #   postgres_data:
 #   redis_data:
 
-
 services:
   postgres:
     image: postgres:16
@@ -59,11 +58,11 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: auth_system_dev
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -72,11 +71,11 @@ services:
     image: redis:7
     container_name: auth-redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -85,12 +84,12 @@ services:
     image: rabbitmq:3-management
     container_name: auth-rabbitmq
     ports:
-      - "5672:5672"     # AMQP (what your app connects to)
-      - "15672:15672"   # management UI: http://localhost:15672 (guest / guest)
+      - '5672:5672' # AMQP (what your app connects to)
+      - '15672:15672' # management UI: http://localhost:15672 (guest / guest)
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
       interval: 10s
       timeout: 10s
       retries: 5
@@ -100,8 +99,8 @@ services:
     image: axllent/mailpit
     container_name: auth-mailpit
     ports:
-      - "1025:1025"     # SMTP (what the worker sends to)
-      - "8025:8025"     # inbox UI: http://localhost:8025
+      - '1025:1025' # SMTP (what the worker sends to)
+      - '8025:8025' # inbox UI: http://localhost:8025
 
   api:
     build:
@@ -109,7 +108,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: auth-api
     ports:
-      - "4000:4000"
+      - '4000:4000'
     env_file:
       - ../.env.docker
     depends_on:
@@ -126,7 +125,7 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
     container_name: auth-worker
-    command: ["node", "dist/worker.js"]
+    command: ['node', 'dist/worker.js']
     env_file:
       - ../.env.docker
     restart: unless-stopped

@@ -81,7 +81,9 @@ describe('Auth flow', () => {
   });
 
   it('resends a verification code to an unverified user', async () => {
-    const res = await request(app).post('/auth/resend-verification').send({ email: testUser.email });
+    const res = await request(app)
+      .post('/auth/resend-verification')
+      .send({ email: testUser.email });
 
     expect(res.status).toBe(200);
     expect(publishMock).toHaveBeenCalledWith(
@@ -90,7 +92,9 @@ describe('Auth flow', () => {
   });
 
   it('rate-limits repeated resend requests (cooldown)', async () => {
-    const res = await request(app).post('/auth/resend-verification').send({ email: testUser.email });
+    const res = await request(app)
+      .post('/auth/resend-verification')
+      .send({ email: testUser.email });
     expect(res.status).toBe(429);
   });
 

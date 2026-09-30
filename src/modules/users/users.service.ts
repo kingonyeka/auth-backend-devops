@@ -21,6 +21,10 @@ export async function updatePassword(userId: string, passwordHash: string) {
   return prisma.user.update({ where: { id: userId }, data: { passwordHash } });
 }
 
-export function toPublicUser(user: { id: string; email: string; emailVerified: boolean }): PublicUser {
+export function toPublicUser(user: {
+  id: string;
+  email: string;
+  emailVerified: boolean;
+}): PublicUser {
   return { id: user.id, email: user.email, emailVerified: user.emailVerified };
 }
