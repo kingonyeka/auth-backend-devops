@@ -25,7 +25,7 @@ export async function processEmailJob(job: EmailJob): Promise<void> {
           `If you did not request this, you can ignore this email.`,
       });
       return;
-  }=
+  }
 }
 
 // Decides what happens to ONE message: succeed, retry, or dead-letter.
